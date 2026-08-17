@@ -1,0 +1,98 @@
+{
+    "Command": {
+        "znuny_health": {
+            "arguments": {
+                "--url": {
+                    "description": "Full URL of the HealthStatusGet endpoint.",
+                    "required": true,
+                    "value": "$znuny_healthstatus_url$"
+                },
+                "--section": {
+                    "description": "Which part of the response to evaluate: daemon, commlog, cron, genericagent, future-tasks, unprocessed-emails, system.",
+                    "required": true,
+                    "value": "$znuny_health_section$"
+                },
+                "--api-key": {
+                    "description": "API key configured in SysConfig 'Znuny::HealthStatus::API::Key'.",
+                    "value": "$znuny_healthstatus_api_key$"
+                },
+                "--api-key-file": {
+                    "description": "Path to a file containing the API key, as an alternative to --api-key.",
+                    "value": "$znuny_healthstatus_api_key_file$"
+                },
+                "--log-hours": {
+                    "description": "Hours of communication log history to evaluate. Only relevant for --section commlog.",
+                    "value": "$znuny_health_log_hours$"
+                },
+                "--timeout": {
+                    "description": "HTTP request timeout in seconds.",
+                    "value": "$znuny_health_timeout$"
+                },
+                "--insecure": {
+                    "description": "Skip TLS certificate verification.",
+                    "set_if": "$znuny_health_insecure$"
+                },
+                "--no-proxy": {
+                    "description": "Ignore proxy environment variables.",
+                    "set_if": "$znuny_health_no_proxy$"
+                },
+                "--warning": {
+                    "description": "Warning threshold (Nagios range). Meaning depends on --section: failed-entry count (cron/genericagent), Failed count (commlog), queue length (future-tasks/system).",
+                    "value": "$znuny_health_warning$"
+                },
+                "--critical": {
+                    "description": "Critical threshold (Nagios range). See --warning.",
+                    "value": "$znuny_health_critical$"
+                },
+                "--warning-runtime": {
+                    "description": "(--section genericagent only) Warning threshold in seconds for a task's last run duration.",
+                    "value": "$znuny_health_warning_runtime$"
+                },
+                "--critical-runtime": {
+                    "description": "(--section genericagent only) Critical threshold in seconds for a task's last run duration.",
+                    "value": "$znuny_health_critical_runtime$"
+                }
+            },
+            "command": "check_znuny.py",
+            "disabled": false,
+            "fields": [
+                { "datafield_id": 1,  "is_required": "y", "var_filter": null },
+                { "datafield_id": 2,  "is_required": "y", "var_filter": null },
+                { "datafield_id": 3,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 4,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 5,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 6,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 7,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 8,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 9,  "is_required": "n", "var_filter": null },
+                { "datafield_id": 10, "is_required": "n", "var_filter": null },
+                { "datafield_id": 11, "is_required": "n", "var_filter": null },
+                { "datafield_id": 12, "is_required": "n", "var_filter": null }
+            ],
+            "imports": [],
+            "is_string": null,
+            "methods_execute": "PluginCheck",
+            "object_name": "znuny_health",
+            "object_type": "object",
+            "timeout": "60",
+            "vars": {
+                "znuny_health_timeout": "10"
+            },
+            "zone": null
+        }
+    },
+    "Datafield": {
+        "1":  { "category_id": null, "varname": "znuny_healthstatus_url",       "caption": "Znuny Health: URL",                     "description": "Full URL of the HealthStatusGet endpoint.",                             "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "1",  "settings": {} },
+        "2":  { "category_id": null, "varname": "znuny_health_section",         "caption": "Znuny Health: Section",                  "description": "daemon, commlog, cron, genericagent, future-tasks, unprocessed-emails, or system.", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "2",  "settings": {} },
+        "3":  { "category_id": null, "varname": "znuny_healthstatus_api_key",   "caption": "Znuny Health: API key",                  "description": "API key configured in SysConfig 'Znuny::HealthStatus::API::Key'.",      "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "3",  "settings": {} },
+        "4":  { "category_id": null, "varname": "znuny_healthstatus_api_key_file", "caption": "Znuny Health: API key file",         "description": "Path to a file containing the API key (alternative to the API key field).", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "4",  "settings": {} },
+        "5":  { "category_id": null, "varname": "znuny_health_log_hours",       "caption": "Znuny Health: LogHours",                 "description": "Hours of communication log history to evaluate (commlog section only).", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "5",  "settings": {} },
+        "6":  { "category_id": null, "varname": "znuny_health_timeout",         "caption": "Znuny Health: Timeout",                  "description": "HTTP request timeout in seconds.",                                      "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "6",  "settings": {} },
+        "7":  { "category_id": null, "varname": "znuny_health_insecure",        "caption": "Znuny Health: Skip TLS verification",    "description": "Set to a non-empty value to skip TLS certificate verification.",        "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "7",  "settings": {} },
+        "8":  { "category_id": null, "varname": "znuny_health_no_proxy",        "caption": "Znuny Health: Ignore proxy",             "description": "Set to a non-empty value to ignore proxy environment variables.",       "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "8",  "settings": {} },
+        "9":  { "category_id": null, "varname": "znuny_health_warning",         "caption": "Znuny Health: Warning threshold",        "description": "Nagios range; meaning depends on the section (see command description).", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "9",  "settings": {} },
+        "10": { "category_id": null, "varname": "znuny_health_critical",        "caption": "Znuny Health: Critical threshold",       "description": "Nagios range; meaning depends on the section (see command description).", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "10", "settings": {} },
+        "11": { "category_id": null, "varname": "znuny_health_warning_runtime", "caption": "Znuny Health: Runtime warning (s)",      "description": "genericagent section only: warning threshold in seconds for a task's last run duration.", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "11", "settings": {} },
+        "12": { "category_id": null, "varname": "znuny_health_critical_runtime","caption": "Znuny Health: Runtime critical (s)",      "description": "genericagent section only: critical threshold in seconds for a task's last run duration.", "datatype": "Icinga\\Module\\Director\\DataType\\DataTypeString", "format": null, "originalId": "12", "settings": {} }
+    }
+}
