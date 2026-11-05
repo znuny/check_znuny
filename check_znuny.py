@@ -532,15 +532,17 @@ def main():
     if detail_lines:
         output += '\n' + '\n'.join(detail_lines)
 
-    oao(output, result.state, '\n'.join(result.perfdata))
+    oao(output, result.state, ' '.join(result.perfdata))
 
 
 def oao(msg, state=STATE_OK, perfdata=''):
     """Over and Out (OaO): print the plugin output and exit with `state`."""
+    lines = msg.strip().split('\n', 1)
+
     if perfdata:
-        print(msg.strip() + '|' + perfdata.strip())
-    else:
-        print(msg.strip())
+        lines[0] += ' | ' + perfdata.strip()
+    
+    print('\n'.join(lines))
     sys.exit(state)
 
 
